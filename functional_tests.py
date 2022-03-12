@@ -41,7 +41,8 @@ class NewVisitorTest(unittest.TestCase):
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
         self.assertTrue(
-            any(row.text == '1: buy pavlins perya' for row in rows))
+            any(row.text == '1: buy pavlins perya' for row in rows),
+            "new element lists don't show in table")
         #текстовое поле по-прежнему приглашает ее добавить еще один элемент.
         #она вводит "сделать мушку из павлиньих перьев"
         #(Эдит очень методична)
