@@ -40,18 +40,28 @@ class NewVisitorTest(unittest.TestCase):
         
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(
-            any(row.text == '1: buy pavlins perya' for row in rows),
-            "new element lists don't show in table")
+        self.assertIn(
+            '1: buy pavlins perya',[row.text for row in rows])
+            #f"new element lists don't show in table.\ncontent is:\n{table.text}")
         #текстовое поле по-прежнему приглашает ее добавить еще один элемент.
         #она вводит "сделать мушку из павлиньих перьев"
         #(Эдит очень методична)
-        self.fail('done test!')
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox.send_keys('make peacock')
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(1)
+        
         #Страница снова обновляется, и теперь показывает оба элемента ее списка
-
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn('1: buy pavlins perya', [row.text for row in rows])
+        self.assertIn(
+            '2: make peacock',
+            [row.text for row in rows])
         #Эдит интересно, запомнит ли сайт ее список. Далее она видит, что сайт
         #сгенерировал для нее уникальный URL-адресс - об этом
         #выводится небольшой текст с объяснениями.
+        self.fail('done test!')
 
         #Она посещает этот URL-адресс - ее список по прежнему там.
 
