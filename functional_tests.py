@@ -14,6 +14,13 @@ class NewVisitorTest(unittest.TestCase):
         '''uninstall'''
         self.browser.quit()
     
+    def check_for_row_in_list_table(self, row_text):
+        '''assert for str in list table'''
+        
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn(row_text, [row.text for row in rows])
+    
     def test_can_start_a_list_and_retrieve_it_later(self):
         '''тест: можно начать список и получить его позже'''
         #Edit listen about new cool online-app for to do list
@@ -37,12 +44,8 @@ class NewVisitorTest(unittest.TestCase):
         #содержит "1: Купить павлиньи перья" в качестве элемента списка
         inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
+        self.check_for_row_in_list_table('1: buy pavlins perya')
         
-        table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr')
-        self.assertIn(
-            '1: buy pavlins perya',[row.text for row in rows])
-            #f"new element lists don't show in table.\ncontent is:\n{table.text}")
         #текстовое поле по-прежнему приглашает ее добавить еще один элемент.
         #она вводит "сделать мушку из павлиньих перьев"
         #(Эдит очень методична)
@@ -52,12 +55,8 @@ class NewVisitorTest(unittest.TestCase):
         time.sleep(1)
         
         #Страница снова обновляется, и теперь показывает оба элемента ее списка
-        table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr')
-        self.assertIn('1: buy pavlins perya', [row.text for row in rows])
-        self.assertIn(
-            '2: make peacock',
-            [row.text for row in rows])
+        self.check_for_row_in_list_table('1: buy pavlins perya')
+        self.check_for_row_in_list_table('2: make peacock')
         #Эдит интересно, запомнит ли сайт ее список. Далее она видит, что сайт
         #сгенерировал для нее уникальный URL-адресс - об этом
         #выводится небольшой текст с объяснениями.
