@@ -1,9 +1,10 @@
+from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
-import unittest
 
-class NewVisitorTest(unittest.TestCase):
+
+class NewVisitorTest(LiveServerTestCase):
     '''test new incomer'''
     
     def setUp(self):
@@ -25,7 +26,7 @@ class NewVisitorTest(unittest.TestCase):
         '''тест: можно начать список и получить его позже'''
         #Edit listen about new cool online-app for to do list
         #she should rate this home page.
-        self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
         #she see, that header and cap-page says about TDL.
 
         self.assertIn('To-Do', self.browser.title)
