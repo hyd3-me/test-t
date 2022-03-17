@@ -4,7 +4,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import WebDriverException
 import time
 
-MAX_WAIT = 10
+MAX_WAIT = 3
 
 
 class NewVisitorTest(LiveServerTestCase):
@@ -73,7 +73,7 @@ class NewVisitorTest(LiveServerTestCase):
         #Эдит интересно, запомнит ли сайт ее список. Далее она видит, что сайт
         #сгенерировал для нее уникальный URL-адресс - об этом
         #выводится небольшой текст с объяснениями.
-        self.fail('done test!')
+        #self.fail('done test!')
 
         #Она посещает этот URL-адресс - ее список по прежнему там.
 
@@ -119,7 +119,7 @@ class NewVisitorTest(LiveServerTestCase):
         #not have any from Edith
         page_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn('byu pavlins perya', page_text)
-        self.assertIn('byu milk', page_text)
+        self.assertIn('buy milk', page_text)
         
         #go to sleep
 
