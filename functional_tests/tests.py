@@ -99,7 +99,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.browser.quit()
         self.browser = webdriver.Firefox()
         
-        #Francis go o home page
+        #Francis go to home page
         self.browser.get(self.live_server_url)
         page_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn('byu pavlins perya', page_text)
@@ -113,7 +113,7 @@ class NewVisitorTest(LiveServerTestCase):
         
         #Francis take a uniq url-adress
         francis_list_url = self.browser.current_url
-        self.aseertRegex(francis_list_url, '/lists/.+')
+        self.assertRegex(francis_list_url, '/lists/.+')
         self.assertNotEqual(francis_list_url, edith_list_url)
         
         #not have any from Edith
